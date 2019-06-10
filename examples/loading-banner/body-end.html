@@ -1,0 +1,27 @@
+<!-- HTML 5.2 allows for styles definitions inside of the body,
+    but the styles can be put also in the head-end.html file -->
+<style>
+#banner {
+   position: absolute;
+   top: 30px;
+   text-align: center;
+   font-size: 3em;
+   width: 100%;
+   z-index: 200;
+}
+.fadeout {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 4s, opacity 4s linear;
+}
+</style>
+<div id="banner">Custom text banner</div>
+<script>
+  // After the scene finishes loading fade out the banner text by
+  // using a css tranisition.
+  function hideBanner() {
+    document.getElementById('banner').classList.add('fadeout')
+  };
+  var viewer = WALK.getViewer();
+  viewer.onSceneReadyToDisplay(hideBanner);
+</script>
