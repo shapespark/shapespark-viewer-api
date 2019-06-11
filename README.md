@@ -26,7 +26,7 @@ finish loading. The `Viewer` object exposes two functions to listen
 for load events:
 
 
-* `Viewer.sceneReadyToDisplay(callback)` - the callback is called when
+* `Viewer.onSceneReadyToDisplay(callback)` - the callback is called when
    key assets (geometry and materials) are loaded, the scene can be
    rendered and the user can start interacting with it. If the scene
    has progressive loader option enabled in the Shapespark editor, the
@@ -34,7 +34,7 @@ for load events:
    assets are downloaded (for example lightmaps and textures can still
    be loading).
 
-* `Viewer.sceneLoadComplete(callback)` - the callback is called when
+* `Viewer.onSceneLoadComplete(callback)` - the callback is called when
    all the scene assets are loaded and the scene can be rendered in
    final quality.
 
