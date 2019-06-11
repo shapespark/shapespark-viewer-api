@@ -39,7 +39,27 @@ for load events:
    final quality.
 
 
-[See the `body-end.html` file](examples/loading-banner/body-end.html)
-used by [this example
-scene](https://demo.shapespark.com/api-examples-banner/) to show a
-custom text banner that fades away after the scene is ready to display.
+Example: show a custom text banner that fades away after the scene is
+ready to display: [`body-end.html`
+file](examples/loading-banner/body-end.html) and
+[a scene that uses it](https://demo.shapespark.com/api-examples-banner/)
+
+## View switch notifications
+
+`Viewer` exposes two functions that allow to get notification when the
+user teleports to one of the predefined views (the viewer top right
+menu).
+
+* `Viewer.onViewSwitchStarted(callback)` - the callback is called with
+  a string view name as an argument when the camera starts to teleport
+  to a view selected by the user.
+
+* `Viewer.onViewSwitchDone(callback)` - the callback is called with
+  a string view name as an argument when the camera finishes teleport
+  to a view.
+
+Example: show a text banner with a view name when the camera starts to
+telport to a view, and fade-out the banner after the telport finishes:
+[`body-end.html` file](examples/view-switch/body-end.html) and [a
+scene that uses
+it](https://demo.shapespark.com/api-examples-view-switch/)
