@@ -67,3 +67,40 @@ telport to a view, fade-out the banner after the telport finishes:
 
 [`body-end.html`](examples/view-switch/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-view-switch/)
+
+## Get the scene bounding box.
+
+Shapespark uses core 3D data types from [the Three.js
+library](https://threejs.org/). Position is represented with
+[`THREE.Vector3`](https://threejs.org/docs/#api/en/math/Vector3),
+rotation with
+[`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler), bounding
+boxes with [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3).
+
+* `Viewer.getSceneBoundingBox()` - returns a
+  [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3) that
+  encloses all the objects in the scene.
+
+## Get the camera position and rotation.
+
+* `Viewer.getCameraPosition()` - returns a
+  [`THREE.Vector3`](https://threejs.org/docs/#api/en/math/Vector3)
+  with world coordinates of the camera.
+
+* `Viewer.getCameraRotation()` - returns a
+  [`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler) That
+  represents rotation of the camera. You can use `.yaw` property to
+  get the left and right head rotation, `.pitch` - up and down
+  rotation, `.roll` - tilt of the head. Outside of the VR mode
+  `.roll` is always 0.
+
+### Example
+
+Draw the camera path and the current camera rotation in a corner of
+the viewer. The example uses `Viewer.getSceneBoundingBox()` to
+determine the range in which the `x` and `y` coordinates of the camera
+can change:
+
+[`body-end.html`](examples/camera-tracking/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-camera-tracking/)
+

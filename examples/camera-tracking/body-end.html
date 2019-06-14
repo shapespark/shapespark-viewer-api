@@ -1,0 +1,81 @@
+<style>
+#cameratracker {
+   position: absolute;
+   background-color: rgba(0, 0, 0, 0.3);
+   top: 0px;
+   z-index: 10;
+}
+</style>
+<canvas id="cameratracker"></canvas>
+<script>
+  (function() {
+    var teleportOn = false;
+    var trackingIntervalMs = 50;
+    var worldMinX, worldMinY, worldMaxY, worldMaxY;
+    var canvas = document.getElementById('cameratracker')
+    canvas.width = 400;
+    canvas.height = 200;
+    var ctx = canvas.getContext('2d');
+    var viewer = WALK.getViewer();
+
+    function disablePositionTracking() {
+      teleportOn = false;
+    }
+    function enablePositionTracking() {
+      teleportOn = true;
+    }
+
+    function showCameraRotation() {
+      var rotation = viewer.getCameraRotation();
+      var yaw = rotation.yaw;
+      var shiftedYaw = Math.PI / 2 + rotation.yaw;
+      // var pitch = rotation.pitch;
+      // White opaque rectangle in the top left corner.
+      ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+      ctx.fillRect(0, 0, 40, 40);
+      // An arc showing the camera Yaw angle.
+      ctx.fillStyle = 'rgba(255, 0, 0, 1.0)';
+      var halfArc = Math.PI / 8;
+      ctx.beginPath();
+      ctx.arc(20, 20, 15, shiftedYaw - halfArc, shiftedYaw + halfArc, false)
+      ctx.lineTo(20, 20)
+      ctx.fill();
+    }
+
+    function recordCameraPosition() {
+      var position = viewer.getCameraPosition();
+      if (position.x < worldMinX || position.y < worldMinY ||
+          position.x > worldMaxX || position.y > worldMaxY) {
+        // camera outside of the scene bounding box.
+        return;
+      }
+
+      var pixelX = canvas.scrollWidth *
+          (position.x - worldMinX) / (worldMaxX - worldMinX);
+      var pixelY = canvas.scrollHeight *
+          (position.y - worldMinY) / (worldMaxY - worldMinY);
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
+      ctx.fillRect(pixelX, pixelY, 4, 4);
+    }
+
+    function trackCamera() {
+      showCameraRotation();
+      if (!teleportOn) {
+        recordCameraPosition();
+      }
+    }
+
+    viewer.onSceneReadyToDisplay(function() {
+      var sceneBoundingBox = viewer.getSceneBoundingBox();
+      worldMinX = sceneBoundingBox.min.x;
+      worldMinY = sceneBoundingBox.min.y;
+      worldMaxX = sceneBoundingBox.max.x;
+      worldMaxY = sceneBoundingBox.max.y;
+      window.setInterval(trackCamera, trackingIntervalMs);
+    });
+
+    // Do not track the user position, while the camera is teleporting
+    viewer.onViewSwitchStarted(disablePositionTracking);
+    viewer.onViewSwitchDone(enablePositionTracking);
+  }());
+</script>
