@@ -1,0 +1,62 @@
+<style>
+#picker {
+   position: absolute;
+   top: 0px;
+   width: 256px;
+   z-index: 10;
+}
+
+#picker > img {
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+}
+
+</style>
+<div id="picker">
+<!--
+
+Note that to use images from a different domain as WebGL textures, the
+server needs to allow cross origin requests for such images. Many
+servers are already configured to allow crossorigin="anonymous"
+requests, because such requests do not contain user cookies, so cannot
+access sensitive user data.
+
+https://hacks.mozilla.org/2011/11/using-cors-to-load-webgl-textures-from-cross-domain-images/
+-->
+<img  src="https://cdn0.shapespark.com/demo/ASSETS/textures/brick.jpg"
+  id="brick" crossorigin="anonymous">
+<img src="https://cdn0.shapespark.com/demo/ASSETS/textures/brick2.jpg"
+  id="brick2" crossorigin="anonymous">
+<img src="https://cdn0.shapespark.com/demo/ASSETS/textures/metal.jpg"
+  id="metal" crossorigin="anonymous">
+<img src="https://cdn0.shapespark.com/demo/ASSETS/textures/stone.jpg"
+  id="stone" crossorigin="anonymous">
+<img src="https://cdn0.shapespark.com/demo/ASSETS/textures/tiles.jpg"
+  id="tiles" crossorigin="anonymous">
+<img src="https://cdn0.shapespark.com/demo/ASSETS/textures/yellow.jpg"
+  id="yellow" crossorigin="anonymous">
+</div>
+<script>
+  var viewer = WALK.getViewer();
+  viewer.setMaterialEditable('rug');
+  // Alternatively: viewer.setAllMaterialsEditable();
+  var imageIds = ['brick', 'brick2', 'metal', 'stone',
+                  'tiles', 'yellow'];
+  imageIds.forEach(function(imageId) {
+    var image = document.getElementById(imageId);
+    var texture = null;
+    image.addEventListener('click', function() {
+      if (texture == null) {
+        // Create the texture only the first time an image is clikced
+        // and reuse it for subsequent clicks.
+        texture = viewer.createTextureFromHtmlImage(image);
+      }
+      var material = viewer.findMaterial('rug');
+      material.baseColorTexture = texture;
+      // Force the frame to be renderer, otherwise the changed texture
+      // will be visible only after the camera is moved.
+      viewer.requestFrame();
+    });
+  });
+</script>

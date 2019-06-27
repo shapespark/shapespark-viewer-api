@@ -44,7 +44,7 @@ Show a custom text banner that fades out after the scene is
 ready to display:
 
 [`body-end.html`](examples/loading-banner/body-end.html) and [live
-scene](https://demo.shapespark.com/api-examples-banner/)
+scene](https://demo.shapespark.com/api-examples-banner/#autoplay)
 
 ## View switch notifications
 
@@ -66,7 +66,7 @@ telport to a view, fade-out the banner after the telport finishes:
 
 
 [`body-end.html`](examples/view-switch/body-end.html) and [live
-scene](https://demo.shapespark.com/api-examples-view-switch/)
+scene](https://demo.shapespark.com/api-examples-view-switch/#autoplay)
 
 ## Get the scene bounding box.
 
@@ -88,7 +88,7 @@ boxes with [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3).
   with world coordinates of the camera.
 
 * `Viewer.getCameraRotation()` - returns a
-  [`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler) That
+  [`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler) that
   represents rotation of the camera. You can use `.yaw` property to
   get the left and right head rotation, `.pitch` - up and down
   rotation, `.roll` - tilt of the head. Outside of the VR mode
@@ -102,5 +102,61 @@ determine the range in which the `x` and `y` coordinates of the camera
 can change:
 
 [`body-end.html`](examples/camera-tracking/body-end.html) and [live
-scene](https://demo.shapespark.com/api-examples-camera-tracking/)
+scene](https://demo.shapespark.com/api-examples-camera-tracking/#autoplay)
 
+## Replace textures using images from external source.
+
+Some applications, such as material configurators, need a custom UI
+for switching textures that are used in the scene. In additions, if
+the number of textures to choose from is large, it is convenient to
+use external textures that are not embedded in the 3D model.
+
+The following API call creates a texture from an image that is not
+embeded in the model:
+
+* `Viewer.createTextureFromHTMLImage(image)` - returns a texture
+object. An argument to this function is an <a
+href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement">HTMLImageElement</a>.
+It can be defined in HTML using `<img>` tags or created in JavaScript
+using built-in <a
+href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image">Image</a>
+constructor.
+
+To set the returned texture in one of the materials in the scene, the
+material needs to be marked as editable. This needs to be done before
+the scene is loaded. To improve performance, Shapespark scene loader
+merges materials with identical properties, after such merging the
+textures and other material properties can not be changed:
+
+* `Viewer.setMaterialEditable(materialName)` - marks a single material
+  as editable.
+* `Viewer.setAllMaterialsEditable()` - marks all materials in the scene
+  as editable.
+
+A material can then be obtained by name:
+
+* `Viewer.findMaterial(materialName)` - returns a `Material` object.
+
+The returned `Material` object has the following texture properties
+that can be changed:
+
+* `Material.baseColorTexture`
+* `Material.roughnessTexture`
+* `Material.metallicTexture`
+* `Material.bumpTexture`
+
+To save GPU and CPU resources Shapespark doesn't render a scene when
+the camera is not moving. Because of this, after a texture is changed,
+the following call is needed to force the scene with the changed
+texture to be rendered:
+
+* `Viewer.requestFrame()` - forces the viewer to render a frame.
+
+
+### Example
+
+Show a grid of images in a corner of the viewer, change a rug texture
+when an image is clicked.
+
+[`body-end.html`](examples/texture-picker/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-texture-picker/#autoplay)
