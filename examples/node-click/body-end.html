@@ -1,0 +1,30 @@
+<style>
+#click-info {
+  position: absolute;
+  top: 0px;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 1.5em;
+  z-index: 10;
+}
+#nodes, #distance {
+  font-weight: bold;
+}
+</style>
+<div id="click-info">
+  Clicked nodes: <span id="nodes">-</span><br/>
+  Click distance: <span id="distance">-</span> m
+</div>
+<script>
+  var viewer = WALK.getViewer();
+  viewer.onNodeTypeClicked(function(node, position, distance) {
+    var nodeTypePath = [];
+    while (node) {
+      nodeTypePath.push(node.type);
+      node = node.parent;
+    }
+    document.getElementById('nodes').innerHTML = nodeTypePath.join(' > ');
+    document.getElementById('distance').innerHTML = distance.toFixed(2);
+    return true;
+  });
+</script>

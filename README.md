@@ -19,6 +19,27 @@ returns the `Viewer` object.  Call this function from a
 `<script></script>` code block in the `body-end.html` and use the
 returned object to interact with the viewer.
 
+## Core 3D data types
+
+Shapespark uses core 3D data types from [the Three.js
+library](https://threejs.org/). Position is represented with
+[`THREE.Vector3`](https://threejs.org/docs/#api/en/math/Vector3),
+rotation with
+[`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler), bounding
+boxes with [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3).
+
+## Node hierarchy
+
+Nodes of the scene, corresponding to *objects* in the user interface, are
+represented with `Node` objects. Each node may have at most one mesh
+attached to it - accessed with `.mesh` property, and any number of
+children nodes - accessed with `.children` array property. A parent of the
+node is accessed with `.parent` property.
+
+Each node has a defined string type. Using the same type for multiple
+nodes allows to perform API actions on all the nodes of the same type at
+once. Node type is accessed with `.type` property.
+
 ## Scene ready to display and scene load complete notifications
 
 Many API operations can be performed only after the key scene assets
@@ -46,6 +67,32 @@ ready to display:
 [`body-end.html`](examples/loading-banner/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-banner/#autoplay)
 
+## Node click notifications
+
+To get a notification when the user clicks a node the following API
+function can be used:
+
+* `Viewer.onNodeTypeClicked([nodeTypeName], callback)` - the `callback` is
+  called with three arguments:
+  * the `Node` object that was clicked. In node hierarchy a click can be
+    attributed to a child (eg. cushion) as well as to any of its ancestors
+    (eg. sofa containing the cushion). The callback is given the
+    lowest-level node (cushion in the above example).
+  * the point of click in 3D world coordinates as a `THREE.Vector3` object,
+  * the distance from the camera to the point of click in world units.
+  If the optional `nodeTypeName` argument is given, the
+  `callback` is called only for clicks in nodes of this type. Otherwise,
+  the `callback` is called for clicks in all nodes.
+
+### Example
+Show:
+
+* the types of the clicked node and all its ancestors in the node hierarchy,
+* the distance from the camera to the clicked point.
+
+[`body-end.html`](examples/node-click/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-node-click/#autoplay)
+
 ## View switch notifications
 
 `Viewer` exposes two functions that allow to get notification when the
@@ -70,16 +117,9 @@ scene](https://demo.shapespark.com/api-examples-view-switch/#autoplay)
 
 ## Get the scene bounding box.
 
-Shapespark uses core 3D data types from [the Three.js
-library](https://threejs.org/). Position is represented with
-[`THREE.Vector3`](https://threejs.org/docs/#api/en/math/Vector3),
-rotation with
-[`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler), bounding
-boxes with [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3).
-
 * `Viewer.getSceneBoundingBox()` - returns a
   [`THREE.Box3`](https://threejs.org/docs/#api/en/math/Box3) that
-  encloses all the objects in the scene.
+  encloses all the nodes in the scene.
 
 ## Get the camera position and rotation.
 
