@@ -130,8 +130,8 @@ scene](https://demo.shapespark.com/api-examples-view-switch/#autoplay)
 * `Viewer.getCameraRotation()` - returns a
   [`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler) that
   represents rotation of the camera. You can use `.yaw` property to
-  get the left and right head rotation, `.pitch` - up and down
-  rotation, `.roll` - tilt of the head. Outside of the VR mode
+  get the left and right camera rotation, `.pitch` - up and down
+  rotation, `.roll` - tilt of the camera. Outside of the VR mode
   `.roll` is always 0.
 
 ### Example
@@ -147,12 +147,12 @@ scene](https://demo.shapespark.com/api-examples-camera-tracking/#autoplay)
 ## Replace textures using images from external source.
 
 Some applications, such as material configurators, need a custom UI
-for switching textures that are used in the scene. In additions, if
+for switching textures that are used in the scene. In addition, if
 the number of textures to choose from is large, it is convenient to
-use external textures that are not embedded in the 3D model.
+use external textures that are not part of the 3D model.
 
 The following API call creates a texture from an image that is not
-embeded in the model:
+embedded in the model:
 
 * `Viewer.createTextureFromHTMLImage(image)` - returns a texture
 object. An argument to this function is an <a
@@ -187,8 +187,7 @@ that can be changed:
 
 To save GPU and CPU resources Shapespark doesn't render a scene when
 the camera is not moving. Because of this, after a texture is changed,
-the following call is needed to force the scene with the changed
-texture to be rendered:
+the following call is needed to force the scene re-render:
 
 * `Viewer.requestFrame()` - forces the viewer to render a frame.
 
