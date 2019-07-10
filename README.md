@@ -93,23 +93,41 @@ Show:
 [`body-end.html`](examples/node-click/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-node-click/#autoplay)
 
-## View switch notifications
+## View switch
 
 `Viewer` exposes two functions that allow to get notification when the
-user teleports to one of the predefined views (the viewer top right
-menu).
+user teleports to views.
 
 * `Viewer.onViewSwitchStarted(callback)` - the `callback` is called with
   a string view name as an argument when the camera starts to teleport
-  to a view selected by the user.
+  to a view.
 
 * `Viewer.onViewSwitchDone(callback)` - the `callback` is called with
   a string view name as an argument when the camera finishes teleport
   to a view.
 
+To switch to a view pragmatically use:
+
+* `Viewer.switchToView(viewName or viewObject, maxTime)` - `viewName`
+  is a string that is visible in the Shapespark view menu and can be
+  used to switch to a view that is already configured in the
+  scene. `maxTime` is an optional integer that allows to override the
+  default maximum time that it takes the camera to switch to a
+  view, it can be set to 0 to switch instantaneously. `viewObject` is
+  an instance of `WALK.View` and can be passed to switch to a view
+  that is not defined in the scene. It has the following properties:
+
+* `WALK.View.position`: [`THREE.Vector3`](https://threejs.org/docs/#api/en/math/Vector3)
+that configures the camera destination position.
+* `WALK.View.rotation`: [`THREE.Euler`](https://threejs.org/docs/#api/en/math/Euler)
+that configures the camera destination rotation.
+
+
 ### Example
-Show a text banner with a view name when the camera starts to
-telport to a view, fade-out the banner after the telport finishes:
+
+Show a text banner with a view name when the camera starts to telport
+to a view, fade-out the banner after the telport finishes. Add a
+custom view switch menu in the left corner:
 
 
 [`body-end.html`](examples/view-switch/body-end.html) and [live

@@ -16,7 +16,23 @@
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
+#custom-view-menu {
+   position: absolute;
+   top: 30px;
+   left: 30px;
+   width: 200px;
+   padding: 10px;
+   z-index: 15;
+   font-size: 1.5em;
+   background-color: rgba(0, 0, 0, 0.3);
+   cursor: pointer;
+}
 </style>
+<div id='custom-view-menu'>
+  <div id="kitchen-view">Kitchen</div>
+  <div id="floor-plan-view">Floor plan</div>
+  <div id="custom-view">Custom</div>
+</div>
 <div id="banner" class="fadeout"></div>
 <script>
   function showBanner(viewName) {
@@ -28,6 +44,28 @@
     document.getElementById('banner').classList.add('fadeout')
   }
   var viewer = WALK.getViewer();
+  // Detect when the camera switches to a view and display a banner.
   viewer.onViewSwitchStarted(showBanner);
   viewer.onViewSwitchDone(hideBanner);
+
+  // Configure a custom view menu. First two items switch to views
+  // that are already defined in the scene. The third item defines own
+  // view.
+  document.getElementById('kitchen-view').addEventListener(
+    'click', function() {
+      viewer.switchToView('Kitchen');
+    });
+  document.getElementById('floor-plan-view').addEventListener(
+    'click', function() {
+      viewer.switchToView('Floor plan');
+    });
+  document.getElementById('custom-view').addEventListener('click', function() {
+    var view = new WALK.View();
+    view.position.x = 0.956;
+    view.position.y = -2.922;
+    view.position.z = 1.546;
+    view.rotation.yawDeg = 121.59;
+    view.rotation.pitchDeg = -44.78;
+    viewer.switchToView(view);
+  });
 </script>
