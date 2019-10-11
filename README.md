@@ -162,6 +162,34 @@ can change:
 [`body-end.html`](examples/camera-tracking/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-camera-tracking/#autoplay)
 
+
+## Capture screenshot.
+
+* `Viewer.captureImage(options)` - captures a JPEG encoded screenshot
+  at the current camera position. Depending on the `options`, the
+  screenshot is either saved to the user disk or returned to the
+  caller as a base64 encoded string.
+
+Options object has the following properties:
+
+* `isPanorama` - if true, 360 equirectangular panorama is captured.
+* `width`, `height` - dimensions of the captured image. If missing the
+  dimensions are set to the current window width and height, so the
+  captured image matches exactly what the user sees on the screen.
+* `toDataUrl` - if true, base64 encode image data is returned as
+  string, otherwise the image is saved to the user disk (depending on
+  the user browser settings, the browser will either open a save file
+  dialog, or download the image automatically to the `Downloads`
+  folder).
+
+### Example
+
+Show two buttons that save the image with the current camera view and
+360 panorama to disk.
+
+[`body-end.html`](examples/screenshot/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-screenshot/#autoplay)
+
 ## Replace textures using images from external source.
 
 Some applications, such as material configurators, need a custom UI

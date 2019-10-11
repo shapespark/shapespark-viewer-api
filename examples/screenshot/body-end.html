@@ -1,0 +1,45 @@
+<style>
+
+#screenshot-menu {
+   position: absolute;
+   top: 30px;
+   left: 30px;
+   width: 200px;
+   padding: 10px;
+   z-index: 15;
+   font-size: 1.5em;
+   background-color: rgba(0, 0, 0, 0.3);
+   cursor: pointer;
+}
+</style>
+<div id="screenshot-menu">
+  <div id="capture-screenshot">Screenshot</div>
+  <div id="capture-panorama">360 panorama</div>
+</div>
+<script>
+  var viewer = WALK.getViewer();
+
+  document.getElementById('capture-screenshot').addEventListener(
+    'click', function() {
+      viewer.captureImage({
+        isPanorama: false,
+        // if true returns base64 encoded image data, if false
+        // download screenshot to the user's disk
+        toDataUrl: false,
+        // defaults to the user screen width and height
+        width: undefined,
+        height: undefined
+      });
+    });
+  document.getElementById('capture-panorama').addEventListener(
+    'click', function() {
+      viewer.captureImage({
+        isPanorama: true,
+        toDataUrl: false,
+        width: 4000,
+        height: 2000
+      });
+
+    });
+
+</script>
