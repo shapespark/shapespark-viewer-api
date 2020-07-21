@@ -203,23 +203,34 @@ Show two buttons that save the image with the current camera view and
 [`body-end.html`](examples/screenshot/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-screenshot/#autoplay)
 
-## Replace textures using images from external source.
+## Replace textures using images or videos from external source.
 
 Some applications, such as material configurators, need a custom UI
 for switching textures that are used in the scene. In addition, if
 the number of textures to choose from is large, it is convenient to
 use external textures that are not part of the 3D model.
 
-The following API call creates a texture from an image that is not
-embedded in the model:
+The following API functions create textures from images or videos that are
+not embedded in the model:
 
 * `Viewer.createTextureFromHTMLImage(image)` - returns a texture
-object. An argument to this function is an <a
+object created from the given <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement">HTMLImageElement</a>.
-It can be defined in HTML using `<img>` tags or created in JavaScript
-using built-in <a
+The image element can be defined in HTML using `<img>` tag or created in
+JavaScript using the built-in <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image">Image</a>
 constructor.
+* `Viewer.createTextureFromHTMLVideo(video)` - returns a texture
+object created from the given <a
+href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement">HTMLVideoElement</a>.
+The video element can be defined in HTML using `<video>` tag or created in
+JavaScript
+with `document.createElement('video')` DOM API call. For the video to start
+automatically set the `autoplay` attribute of the element, and if the video
+has an audio track also set the `muted` attribute (videos with unmuted audio
+cannot be started without a user interaction); for the video to loop set the
+`loop` attribute.
+
 
 To set the returned texture in one of the materials in the scene, the
 material needs to be marked as editable. This needs to be done before
@@ -253,8 +264,8 @@ the following call is needed to force the scene re-render:
 
 ### Example
 
-Show a grid of images in a corner of the viewer, change a rug texture
-when an image is clicked.
+Show a grid of images and videos in a corner of the viewer, change a rug
+texture when an image or video is clicked.
 
 [`body-end.html`](examples/texture-picker/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-texture-picker/#autoplay)
