@@ -6,7 +6,7 @@
    z-index: 10;
 }
 
-#picker > img {
+#picker > img, #picker > video {
   width: 64px;
   height: 64px;
   margin: 8px;
@@ -16,8 +16,8 @@
 <div id="picker">
 <!--
 
-Note that to use images from a different domain as WebGL textures, the
-server needs to allow cross origin requests for such images. Many
+Note that to use images or videos from a different domain as WebGL textures,
+the server needs to allow cross origin requests for such images/videos. Many
 servers are already configured to allow crossorigin="anonymous"
 requests, because such requests do not contain user cookies, so cannot
 access sensitive user data.
@@ -36,21 +36,37 @@ https://hacks.mozilla.org/2011/11/using-cors-to-load-webgl-textures-from-cross-d
   id="tiles" crossorigin="anonymous">
 <img src="https://cdn0.shapespark.com/demo/ASSETS/textures/yellow.jpg"
   id="yellow" crossorigin="anonymous">
+<video src="https://cdn0.shapespark.com/demo/ASSETS/textures/dots-video.mp4"
+  id="dots-video" crossorigin="anonymous" autoplay muted loop>
+</video>
+<video src="https://cdn0.shapespark.com/demo/ASSETS/textures/lines-video.mp4"
+  id="lines-video" crossorigin="anonymous" autoplay muted loop>
+</video>
+<video src="https://cdn0.shapespark.com/demo/ASSETS/textures/squares-video.mp4"
+  id="squares-video" crossorigin="anonymous" autoplay muted loop>
+</video>
 </div>
 <script>
   var viewer = WALK.getViewer();
   viewer.setMaterialEditable('rug');
   // Alternatively: viewer.setAllMaterialsEditable();
-  var imageIds = ['brick', 'brick2', 'metal', 'stone',
-                  'tiles', 'yellow'];
-  imageIds.forEach(function(imageId) {
-    var image = document.getElementById(imageId);
+  var textureElementIds = ['brick', 'brick2', 'metal', 'stone', 'tiles',
+                           'yellow', 'dots-video', 'lines-video',
+                           'squares-video'];
+  textureElementIds.forEach(function(textureElementId) {
+    var textureElement = document.getElementById(textureElementId);
     var texture = null;
-    image.addEventListener('click', function() {
-      if (texture == null) {
-        // Create the texture only the first time an image is clikced
-        // and reuse it for subsequent clicks.
-        texture = viewer.createTextureFromHtmlImage(image);
+    textureElement.addEventListener('click', function() {
+      // Create the texture only the first time the texture element is clicked
+      // and reuse it for subsequent clicks.
+      if (texture === null) {
+        if (textureElement instanceof HTMLVideoElement) {
+          // textureElement is <video>
+          texture = viewer.createTextureFromHtmlVideo(textureElement);
+        } else {
+          // textureElement is <img>
+          texture = viewer.createTextureFromHtmlImage(textureElement);
+        }
       }
       var material = viewer.findMaterial('rug');
       material.baseColorTexture = texture;
