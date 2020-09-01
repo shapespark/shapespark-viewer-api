@@ -119,7 +119,7 @@ user teleports to views.
   a string view name as an argument when the camera finishes teleport
   to a view.
 
-To switch to a view pragmatically use:
+To switch to a view programmatically use:
 
 * `Viewer.switchToView(viewName or viewObject, maxTime)` - `viewName`
   is a string that is visible in the Shapespark view menu and can be
