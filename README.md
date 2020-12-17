@@ -238,16 +238,21 @@ the scene is loaded. To improve performance, Shapespark scene loader
 merges materials with identical properties, after such merging the
 textures and other material properties can not be changed:
 
-* `Viewer.setMaterialEditable(materialName)` - marks a single material
-  as editable.
+* `Viewer.setMaterialEditable(materialName)` - if `materialName` is a string
+  it marks a single material with the given name as editable; if `materialName`
+  is a regular expression it marks all the materials with name matching
+  the regular expression as editable.
 * `Viewer.setAllMaterialsEditable()` - marks all materials in the scene
   as editable.
 
-A material can then be obtained by name:
+Materials can be obtained in two ways:
 
-* `Viewer.findMaterial(materialName)` - returns a `Material` object.
+* `Viewer.getEditableMaterials()` - returns an array of `Material` objects
+  containing all the editable materials in the scene.
+* `Viewer.findMaterial(materialName)` - returns a `Material` object
+  for the editable material with the given name.
 
-The returned `Material` object has the following texture properties
+Returned `Material` objects have the following texture properties
 that can be changed:
 
 * `Material.baseColorTexture`
