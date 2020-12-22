@@ -80,6 +80,27 @@ ready to display:
 [`body-end.html`](examples/loading-banner/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-banner/#autoplay)
 
+## Using your own static assets files.
+
+When extending the viewer you can use your own assets such as images,
+JSONs, videos or audio files. Place such files in an
+`Documents\Shapespark\YOUR_SCENE_NAME\extra-assets` folder. This
+folder is uploaded together with a scene. To get a path to files in
+this folder from your JavaScript code use a function:
+
+* `WALK.getExtraAssetUrl(fileName)` - returns a path to a file stored
+  in the scene `extra-assets` folder. Can be called only after page assets
+  finish loading (so for example from the `window.addEventListener('load',
+  handler);` handler.
+
+### Example
+Show a custom image banner that fades out after the scene is
+ready to display:
+
+[`body-end.html`](examples/loading-image-banner/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-image-banner/#autoplay)
+
+
 ## Node click notifications
 
 To get a notification when the user clicks a node the following API
@@ -269,3 +290,5 @@ texture when an image or video is clicked.
 
 [`body-end.html`](examples/texture-picker/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-texture-picker/#autoplay)
+
+

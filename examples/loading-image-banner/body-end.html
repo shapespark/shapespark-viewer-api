@@ -1,0 +1,36 @@
+<style>
+#banner {
+   position: absolute;
+   top: 10px;
+   width: 100%;
+   z-index: 10;
+}
+#banner-img {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   height: 30%;
+}
+.fadeout {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 4s, opacity 4s linear;
+}
+</style>
+<div id="banner"><img id="banner-img"></div>
+<script>
+  // After the scene finishes loading fade out the banner by
+  // using a css tranisition.
+  function hideBanner() {
+    document.getElementById('banner').classList.add('fadeout')
+  };
+
+  // WALK.getExtraAssetUrl can be called only after document is
+  // loaded.
+  window.addEventListener('load', function() {
+    var bannerElement = document.getElementById('banner-img');
+    bannerElement.src = WALK.getExtraAssetUrl('banner.jpg');
+  });
+  var viewer = WALK.getViewer();
+  viewer.onSceneReadyToDisplay(hideBanner);
+</script>
