@@ -80,7 +80,7 @@ ready to display:
 [`body-end.html`](examples/loading-banner/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-banner/#autoplay)
 
-## Using your own static assets files.
+## Using your own static asset files.
 
 When extending the viewer you can use your own assets such as images,
 JSONs, videos or audio files. Place such files in an
