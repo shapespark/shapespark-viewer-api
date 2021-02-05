@@ -234,13 +234,15 @@ use external textures that are not part of the 3D model.
 The following API functions create textures from images or videos that are
 not embedded in the model:
 
-* `Viewer.createTextureFromHTMLImage(image)` - returns a texture
-object created from the given <a
+* `Viewer.createTextureFromHTMLImage(image, hasAlpha=false)` - returns
+a texture object created from the given <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement">HTMLImageElement</a>.
 The image element can be defined in HTML using `<img>` tag or created in
 JavaScript using the built-in <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image">Image</a>
-constructor.
+constructor. If the `hasAlpha` argument is `true`, the alpha channel of the
+image is available in the texture.
+
 * `Viewer.createTextureFromHTMLVideo(video)` - returns a texture
 object created from the given <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement">HTMLVideoElement</a>.
