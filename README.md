@@ -40,18 +40,22 @@ Each node has a defined string type. Using the same type for multiple
 nodes allows to perform API actions on all the nodes of the same type at
 once. Node type is accessed with `.type` property.
 
-## Scene autoplay
+## Scene autoplay, menu and help visibility
 
 * `Viewer.play()` - starts to load the scene (corresponds to clicking the
   *Play* button)
+* `Viewer.menuVisible` - a boolean property that controls the visibility
+  of the viewer menu.
+* `Viewer.helpVisible` - a boolean property that controls the visibility
+  of the viewer help.
 
 ### Example
-Plays the scene automatically, without requiring the user to click the *Play*
-button or include the `#autoplay` hash in the scene URL:
+Plays the scene and opens the viewer help automatically without waiting
+for the user to click the *Play* or *Help* buttons. The `#autoplay` and `#help`
+hashes don't have to be included in the scene URL:
 
 [`body-end.html`](examples/autoplay/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-autoplay/)
-
 
 ## Scene ready to display and scene load complete notifications
 
