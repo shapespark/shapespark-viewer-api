@@ -104,6 +104,29 @@ ready to display:
 [`body-end.html`](examples/loading-image-banner/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-image-banner/#autoplay)
 
+## Displaying HTML pop-ups
+
+To display an HTML pop-up use the following function:
+
+* `Viewer.openPopup(content, options, onClose)` - opens a pop-up with
+  content defined by an HTML markup string in the `content` argument.
+  `options` is an optional object definining how the pop-up is laid out
+  and `onClose` is an optional callback called when the pop-up is closed.
+
+Options object has the following properties:
+
+* `centerHorizontally` - if true, the pop-up is centered horizontally
+  on the screen; defaults to false.
+* `centerVertically` - if true, the pop-up is centered vertically
+  on the screen; defaults to false.
+* `padding` - if true, the pop-up has padding; defaults to false.
+
+### Example
+Show a custom welcome pop-up centered on a screen when the scene is ready
+to display.
+
+[`body-end.html`](examples/popup/body-end.html) and [live
+scene](https://demo.shapespark.com/api-examples-popup/#autoplay)
 
 ## Node click notifications
 
