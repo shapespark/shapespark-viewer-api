@@ -1,0 +1,13 @@
+<script>
+  var welcomeContent =
+    '<div style="font-size: 1.5em">' +
+    '  <span style="font-size: 1.5em">Welcome</span>' +
+    '  <hr/>' +
+    '  Hello Visitor!' +
+    '</div>';
+  var viewer = WALK.getViewer();
+  viewer.onSceneReadyToDisplay(function() {
+    viewer.openPopup(welcomeContent,
+      {centerHorizontally: true, centerVertically: true});
+  });
+</script>
