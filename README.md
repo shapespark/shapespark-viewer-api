@@ -331,5 +331,5 @@ scene](https://demo.shapespark.com/api-examples-texture-picker/#autoplay)
 Set of utilities for handling minimap state. Need to be called after the scene has loaded.
 
 * `Viewer.isMinimapEnabled()` - returns `true` if minimap is enabled
-* `Viewer.enableMinimap()` - enable minimap, attach to viewer
-* `Viewer.disableMinimap()` - disable minimap, remove from viewer 
+* `Viewer.enableMinimap()` - enables minimap and attaches it to the viewer 
+* `Viewer.disableMinimap()` - disables minimap and removes it from the viewer
