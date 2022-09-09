@@ -325,11 +325,20 @@ texture when an image or video is clicked.
 [`body-end.html`](examples/texture-picker/body-end.html) and [live
 scene](https://demo.shapespark.com/api-examples-texture-picker/#autoplay)
 
+## Modify UV Mapping
+
+Obtain an editable material and call the following function after the scene
+is loaded:
+
+* `Material.setUvOffsetAndScale(x, y, w, z)` - Sets the UV offset and scale
+  for the material. The offset (x, y) is the position of the lower left corner of the 
+  texture in the UV space, and the scale (w, z) is the size of the texture in the 
+  UV space. The default offset is (0, 0) and the default scale is (1, 1).
 
 ## Minimap
 
 Set of utilities for handling minimap state. Need to be called after the scene has loaded.
 
 * `Viewer.isMinimapEnabled()` - returns `true` if minimap is enabled
-* `Viewer.enableMinimap()` - enables minimap and attaches it to the viewer 
+* `Viewer.enableMinimap()` - enables minimap and attaches it to the viewer
 * `Viewer.disableMinimap()` - disables minimap and removes it from the viewer
