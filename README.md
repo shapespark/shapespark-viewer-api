@@ -229,7 +229,10 @@ scene](https://demo.shapespark.com/api-examples-camera-tracking/#autoplay)
 * `Viewer.captureImage(options)` - captures a JPEG encoded screenshot
   at the current camera position. Depending on the `options`, the
   screenshot is either saved to the user disk or returned to the
-  caller as a base64 encoded string.
+  caller as a base64 encoded string. Returns a `Promise` that resolves
+  once the screenshot has been captured; `await` it (or use `.then()`)
+  if you need to know when the capture finished or want to use the
+  returned base64 string.
 
 Options object has the following properties:
 
@@ -261,7 +264,7 @@ use external textures that are not part of the 3D model.
 The following API functions create textures from images or videos that are
 not embedded in the model:
 
-* `Viewer.createTextureFromHTMLImage(image, hasAlpha=false)` - returns
+* `Viewer.createTextureFromHtmlImage(image, hasAlpha=false)` - returns
 a texture object created from the given <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement">HTMLImageElement</a>.
 The image element can be defined in HTML using `<img>` tag or created in
@@ -270,7 +273,7 @@ href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image">I
 constructor. If the `hasAlpha` argument is `true`, the alpha channel of the
 image is available in the texture.
 
-* `Viewer.createTextureFromHTMLVideo(video)` - returns a texture
+* `Viewer.createTextureFromHtmlVideo(video)` - returns a texture
 object created from the given <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement">HTMLVideoElement</a>.
 The video element can be defined in HTML using `<video>` tag or created in
